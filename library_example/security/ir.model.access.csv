@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_library_example_library_example,library_example.library_example,model_library_example_library_example,base.group_user,1,1,1,1
