@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, _
+from odoo.exceptions import UserError, ValidationError
 from datetime import date, datetime
 
 
@@ -18,23 +19,18 @@ class LibraryExample(models.Model):
     def create(self, vals):
         if 'director' in vals:
             record = super(LibraryExample, self).create(vals)
-
             return record
         else:
-            raise UserWarning(_("Debe ingresar el valor al campo director"))
+            raise UserError(_("Debe ingresar el valor al campo director"))
 
     def write(self, vals):
-        if 'state' in vals:
-            sta = vals.get('state')
-            if sta == 'closed':
-                raise UserWarning(_("Seguro que desea cerrar la libreria"))
         return super(LibraryExample, self).write(vals)
 
     def unlink(self):
         if len(self.library_book_ids) == 0:
             return super(LibraryExample, self).unlink()
         else:
-            raise UserWarning(_("para poder eliminar una libreria 1ro reasigne sus libros a otra."))
+            raise UserError(_("Para poder eliminar una libreria 1ro reasigne sus libros a otra."))
 
     def lista_autores_libros_archivados(self):
         books = self.env["library.book"].search([('state', '=', 'archivado')])
