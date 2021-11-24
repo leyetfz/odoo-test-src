@@ -34,11 +34,8 @@ class LibraryExample(models.Model):
 
     def lista_autores_libros_archivados(self):
         books = self.env["library.book"].search([('state', '=', 'archivado')])
-        autores = []
-        for b in books:
-            autores.append(b.autor)
-        aut_conjunto = set(autores)
-        return list(aut_conjunto)
+        autores = set([bo.name for bo in books])
+        return list(autores)
 
 
 class Book(models.Model):
@@ -54,5 +51,3 @@ class Book(models.Model):
     state = fields.Selection(
         [('disponible', 'Disponible'), ('prestado', 'Prestado'), ('vendido', 'Vendido'), ('archivado', 'Archivado')],
         string="Estado", default="disponible")
-
-
