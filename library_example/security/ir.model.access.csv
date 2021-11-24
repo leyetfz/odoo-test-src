@@ -1,2 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_library_example_library_example,library_example.library_example,model_library_example_library_example,base.group_user,1,1,1,1
+access_library_example,library_example,model_library_example,group_library_user,1,1,1,0
+access_library_example_mng,library_example_mng,model_library_example,group_library_manager,1,1,1,1
+access_library_book,library_book,model_library_book,group_library_user,1,1,1,0
+access_library_book_mng,library_book_mng,model_library_book,group_library_manager,1,1,1,1

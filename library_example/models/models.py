@@ -8,20 +8,21 @@ from datetime import date, datetime
 class LibraryExample(models.Model):
     _name = 'library.example'
     _description = 'gestion de librerias'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _rec_name = 'name'
 
     name = fields.Char(string="Nombre", help="nombre de la biblioteca", required=True, default="Biblioteca de ejemplo")
-    date = fields.Date(string="Fecha de fundación", required=True, default=lambda self: self.Date.today)
-    director = fields.Many2one("hr.employee", string="Nombre del director")
+    code = fields.Char('Code', default='/')
+    date = fields.Date(string="Fecha de fundación", default=fields.Date.today)
+    director = fields.Many2one("hr.employee", string="Nombre del director", copy=False)
     library_book_ids = fields.One2many("library.book", "library_example_id", string="Libros")
     state = fields.Selection([('open', 'Abierto'), ('closed', 'Cerrado')], string="Estado", default='open')
 
     @api.model
     def create(self, vals):
-        if 'director' in vals:
-            record = super(LibraryExample, self).create(vals)
-            return record
-        else:
-            raise UserError(_("Debe ingresar el valor al campo director"))
+        if vals.get('code', '/') == '/':
+            vals['code'] = self.env['ir.sequence'].next_by_code('library.seq')
+        return super(LibraryExample, self).create(vals)
 
     def write(self, vals):
         return super(LibraryExample, self).write(vals)
@@ -40,6 +41,9 @@ class LibraryExample(models.Model):
         aut_conjunto = set(autores)
         return list(aut_conjunto)
 
+    def set_closed(self):
+        self.write({'state':'closed'})
+
 
 class Book(models.Model):
     _name = 'library.book'
@@ -50,7 +54,7 @@ class Book(models.Model):
     price_sale = fields.Float(string="Precion de venta")
     autor = fields.Many2one("res.users", string="Autor")
     abstract = fields.Text(string="Resumen")
-    library_example_id = fields.Many2one("library.book", string="Libreria")
+    library_example_id = fields.Many2one("library.example", string="Libreria")
     state = fields.Selection(
         [('disponible', 'Disponible'), ('prestado', 'Prestado'), ('vendido', 'Vendido'), ('archivado', 'Archivado')],
         string="Estado", default="disponible")
