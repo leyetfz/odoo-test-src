@@ -8,6 +8,9 @@
           <header>
             <button name="set_closed" type="object" string="Close" icon="fa-bell" states="open"
                     class="btn btn-info"/>
+            <button name="set_open" type="object" string="Open" icon="fa-bell" states="closed"
+                    class="btn btn-info"/>
+
             <field name="state" widget="statusbar"/>
           </header>
           <sheet>
@@ -19,6 +22,7 @@
               </group>
               <group>
                 <field name="director"/>
+                <field name="user_id"/>
               </group>
             </group>
             <notebook>
@@ -27,6 +31,7 @@
                   <tree editable="bottom">
                     <field name="name"/>
                     <field name="isbn"/>
+                    <field name="cost_book"/>
                     <field name="price_sale"/>
                     <field name="autor"/>
                     <field name="abstract"/>
