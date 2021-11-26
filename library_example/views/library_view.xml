@@ -91,7 +91,6 @@
       </field>
     </record>
 
-
     <record id="library_action" model="ir.actions.act_window">
       <field name="name">Library</field>
       <field name="type">ir.actions.act_window</field>
