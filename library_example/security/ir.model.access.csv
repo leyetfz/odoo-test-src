@@ -3,3 +3,4 @@ access_library_example,library_example,model_library_example,group_library_user,
 access_library_example_mng,library_example_mng,model_library_example,group_library_manager,1,1,1,1
 access_library_book,library_book,model_library_book,group_library_user,1,1,1,0
 access_library_book_mng,library_book_mng,model_library_book,group_library_manager,1,1,1,1
+access_po_mng,po_mng,purchase.model_purchase_order,group_library_manager,1,1,1,1

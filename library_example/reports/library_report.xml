@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="report_library">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <h1 class="text-center text-info">
+                                <span>Library report</span>
+                            </h1>
+                            <stong>Director: </stong><span t-field="doc.director.name"/>
+                            <hr/>
+                            <div class="table border-table">
+                                <div class="row">
+                                    <div class="col-4" style="border-top:1px solid black;">
+                                        <span >Dato 1</span>
+                                    </div>
+                                    <div class="col-4" style="border-top:1px solid black;">
+                                        <span >Dato 1</span>
+                                    </div>
+                                    <div class="col-4" style="border-top:1px solid black;">
+                                        <span >Dato 1</span>
+                                    </div>
+                                </div>
+                                <t t-foreach="doc.library_book_ids" t-as="book">
+                                    <div class="row">
+                                    <div class="col-4" style="border-top:1px solid black;">
+                                        <span t-esc="book.name"/>
+                                    </div>
+                                    <div class="col-4" style="border-top:1px solid black;">
+                                        <span t-esc="book.isbn"/>
+                                    </div>
+                                    <div class="col-4" style="border-top:1px solid black;">
+                                        <span t-esc="book.cost_book"/>
+                                    </div>
+                                </div>
+                                </t>
+                            </div>
+
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <report
+                id="report_library"
+                model="library.example"
+                string="Library report"
+                name="library_example.report_library"
+                file="library_example.report_library"
+                report_type="qweb-pdf"
+                menu="False"/>
+    </data>
+</odoo>

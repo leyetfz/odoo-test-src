@@ -20,8 +20,10 @@
     'data': [
         'security/library_security.xml',
         'security/ir.model.access.csv',
+        'reports/library_report.xml',
         'views/library_view.xml',
         'data/library_sequence.xml',
+        'views/purchase_order_view.xml',
     ],
 
 }

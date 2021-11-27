@@ -60,7 +60,8 @@ class Book(models.Model):
 
     @api.depends("cost_book")
     def _compute_price_sale(self):
-        self.price_sale = self.cost_book + self.cost_book * 0.30
+        for record in self:
+            record.price_sale = record.cost_book + record.cost_book * 0.30
 
 
     name = fields.Char(string="Nombre", required=True)

@@ -14,6 +14,9 @@
             <field name="state" widget="statusbar"/>
           </header>
           <sheet>
+            <div class="oe_button_box">
+              <button class="oe_stat_button" name="library_example.report_library" type="action" string="Library report" icon="fa-print"/>
+            </div>
             <group>
               <field name="code" readonly="1"/>
               <group>
