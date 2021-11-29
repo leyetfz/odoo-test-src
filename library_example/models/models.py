@@ -63,10 +63,9 @@ class Book(models.Model):
         for record in self:
             record.price_sale = record.cost_book + record.cost_book * 0.30
 
-
     name = fields.Char(string="Nombre", required=True)
     isbn = fields.Char(string="ISBN", required=True)
-    price_sale = fields.Float(string="Precion de venta", compute="_compute_price_sale")
+    price_sale = fields.Float(string="Precio de venta", compute="_compute_price_sale", digits='Payment Terms') #Ejemplo para visualizar la forma de controlar la precis. decimal, este ejemplo muestra 6
     cost_book = fields.Float(string="Costo")
     autor = fields.Many2one("res.users", string="Autor")
     abstract = fields.Text(string="Resumen")

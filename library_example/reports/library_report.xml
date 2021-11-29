@@ -12,15 +12,15 @@
                             <stong>Director: </stong><span t-field="doc.director.name"/>
                             <hr/>
                             <div class="table border-table">
-                                <div class="row">
+                                <div class="row bg-info">
                                     <div class="col-4" style="border-top:1px solid black;">
-                                        <span >Dato 1</span>
+                                        <span >Name</span>
                                     </div>
                                     <div class="col-4" style="border-top:1px solid black;">
-                                        <span >Dato 1</span>
+                                        <span >ISBN</span>
                                     </div>
                                     <div class="col-4" style="border-top:1px solid black;">
-                                        <span >Dato 1</span>
+                                        <span >Cost</span>
                                     </div>
                                 </div>
                                 <t t-foreach="doc.library_book_ids" t-as="book">
@@ -43,7 +43,7 @@
                 </t>
             </t>
         </template>
-
+        <!-- ESte action muestra el reporte en PDF desde el boton del form-->
         <report
                 id="report_library"
                 model="library.example"
@@ -52,5 +52,15 @@
                 file="library_example.report_library"
                 report_type="qweb-pdf"
                 menu="False"/>
+
+        <!-- ESte action muestra el reporte en HTML desde el menu contextual-->
+        <report
+                id="report_library_menu"
+                model="library.example"
+                string="Library report HTML"
+                name="library_example.report_library"
+                file="library_example.report_library"
+                report_type="qweb-html"
+                menu="True"/>
     </data>
 </odoo>
