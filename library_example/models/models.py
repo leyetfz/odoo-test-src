@@ -11,18 +11,18 @@ class LibraryExample(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _rec_name = 'name'
 
-    @api.onchange("director")
-    def _onchange_director(self):
-        if self.director: # self tiene la version cambiada del objeto
-            # self._origin => valores del objeto antes de cambiar
-            self.user_id = self.director.user_id.id
+    # @api.onchange("director")
+    # def _onchange_director(self):
+    #     if self.director: # self tiene la version cambiada del objeto
+    #         # self._origin => valores del objeto antes de cambiar
+    #         self.user_id = self.director.user_id.id
 
 
     name = fields.Char(string="Nombre", help="nombre de la biblioteca", required=True, default="Biblioteca de ejemplo")
     code = fields.Char('Code', default='/')
     date = fields.Date(string="Fecha de fundación", default=fields.Date.today)
     director = fields.Many2one("hr.employee", string="Nombre del director", copy=False)
-    user_id = fields.Many2one("res.users", string="Usuario relacionado al director")
+    user_id = fields.Many2one("res.users", string="Usuario relacionado al director", related='director.user_id')
     library_book_ids = fields.One2many("library.book", "library_example_id", string="Libros")
     state = fields.Selection([('open', 'Abierto'), ('closed', 'Cerrado')], string="Estado", default='open')
 

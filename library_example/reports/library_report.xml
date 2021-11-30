@@ -9,7 +9,7 @@
                             <h1 class="text-center text-info">
                                 <span>Library report</span>
                             </h1>
-                            <stong>Director: </stong><span t-field="doc.director.name"/>
+                            <strong>Director: </strong><span t-field="doc.director.name"/>
                             <hr/>
                             <div class="table border-table">
                                 <div class="row bg-info">
@@ -43,7 +43,8 @@
                 </t>
             </t>
         </template>
-        <!-- ESte action muestra el reporte en PDF desde el boton del form-->
+
+        <!-- Este action muestra el reporte en PDF desde el boton del form-->
         <report
                 id="report_library"
                 model="library.example"
@@ -53,7 +54,8 @@
                 report_type="qweb-pdf"
                 menu="False"/>
 
-        <!-- ESte action muestra el reporte en HTML desde el menu contextual-->
+
+        <!-- Este action muestra el reporte en HTML desde el menu contextual-->
         <report
                 id="report_library_menu"
                 model="library.example"
