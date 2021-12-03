@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+       <template id="email_template_library_send">
+            <p>Employee
+                 Dear <t t-esc="name"/>,
+          You will find your library report for LIBRARY_<t t-esc="library"/>, with date
+           <t t-esc="date"/>.
+          <br/>
+          Best regards,<br/>
+          ODOO ERP System
+            </p>
+        </template>
+
+</odoo>

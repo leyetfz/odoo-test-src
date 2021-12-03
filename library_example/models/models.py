@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
-
+import logging
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError, ValidationError
 from datetime import date, datetime
+_logger = logging.getLogger(__name__)
 
 
 class LibraryExample(models.Model):
@@ -51,6 +52,42 @@ class LibraryExample(models.Model):
 
     def set_open(self):
         self.write({'state': 'open'})
+
+
+    def _send_mail_library(self):
+        ''' Function colled from cron job'''
+        try:
+            libraries = self.env['library.example'].search([('state','=','open')])
+            for record in libraries:
+                mail_template = self.env.ref("library_example.email_template_library_send")
+
+                if record.create_uid.partner_id and record.create_uid.partner_id.email:
+                    vals = {'name': self.env.user.partner_id.name,
+                            'library': '{} / {}'.format(record.code, record.name),
+                            'date': fields.Date.today().strftime("%d/%m/%Y")}
+
+                    rendered_body = mail_template._render(vals, engine="ir.qweb")
+                    body = self.env["mail.render.mixin"]._replace_local_links(rendered_body)
+                    self.env["mail.mail"].sudo().create(
+                        {
+                            "email_from": self.env.user.email_formatted,
+                            "author_id": self.env.user.partner_id.id,
+                            "body_html": body,
+                            "subject": _("Email notification for Open Library"),
+                            "email_to": record.create_uid.partner_id.email,
+                            "auto_delete": True,
+                        }
+                    ).send()
+
+                    #Poner mensaje en el chatter cada vez que esto ocurra
+                    message = "<ul class=\"o_mail_thread_message_tracking\">\n<li>Status:<span> " + record.state + " </span><b>-></b> Send to User. Attachment included </span></li></ul>"
+                    record.message_post(body=message, subject="Library record send to Creation User")
+                else:
+                    _logger.debug(_("User must have partners email to notify."))
+        except:
+            _logger.critical(_("Something went wrong while sending library report through email."))
+
+
 
 
 

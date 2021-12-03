@@ -15,7 +15,7 @@
     'category': 'Stock',
     'version': '0.1',
     # any module necessary for this one to work correctly
-    'depends': ['base', 'hr', 'purchase', 'report_xlsx'], # Observar que se adiciono el modulo report_xlsx a este repo para generar reportes xlsx
+    'depends': ['base', 'hr', 'purchase', 'report_xlsx', 'mail'], # Observar que se adiciono el modulo report_xlsx a este repo para generar reportes xlsx
     # always loaded
     'data': [
         'security/library_security.xml',
@@ -26,6 +26,8 @@
         'views/purchase_order_view.xml',
         'reports/purchase_order_report_ext.xml',
         'reports/library_action_xlsx_report.xml',
+        'data/library_cron.xml',
+        'data/library_mail_template.xml'
     ],
 
 }
